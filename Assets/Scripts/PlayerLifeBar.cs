@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerLifeBar : MonoBehaviour
 {
     #region VARIABLES
-    private Player _player = null;
     private List<Transform> _lifeBars;
     private int _currentLifeBarNumber = 0;
     #endregion
@@ -14,18 +13,9 @@ public class PlayerLifeBar : MonoBehaviour
     #region UNITY Methods
     private void Start()
     {
-        _player = FindObjectOfType<Player>();
-        _player.OnPlayerDamaged += _player_OnPlayerDamaged;
-
+        EventManager.OnLifebarUpdate.AddListener(OnLifebarUpdate);
         InitLifebar();
-     
     }
-
-    private void OnDestroy()
-    {
-        _player.OnPlayerDamaged -= _player_OnPlayerDamaged;
-    }
-
     #endregion
 
     #region PRIVATE Methods
@@ -38,7 +28,7 @@ public class PlayerLifeBar : MonoBehaviour
         GetComponentsInChildren(true, _lifeBars);
         _lifeBars.RemoveAt(0);
 
-        _currentLifeBarNumber = _lifeBars.Count - LevelManager._gameSettings_SO.PlayerLives;
+        _currentLifeBarNumber = (_lifeBars.Count - 1) - LevelManager.gameProgress_SO.CurrentPlayerLives;
 
         UpdateLifeBar(_currentLifeBarNumber);
     }
@@ -59,27 +49,16 @@ public class PlayerLifeBar : MonoBehaviour
 
             _lifeBars[i].gameObject.SetActive(false);
         }
-
-        if (_currentLifeBarNumber++ < _lifeBars.Count)
-        {
-            _currentLifeBarNumber++;
-        }
-        else
-        {
-            Debug.Log("No more lifebars in collection");
-            return;
-        }
     }
     #endregion
 
     #region EVENTS
     /// <summary>
-    /// Updates players life bar when they takes damage
+    /// Updates players life bar
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void _player_OnPlayerDamaged(object sender, System.EventArgs e)
+    private void OnLifebarUpdate()
     {
+        _currentLifeBarNumber = (_lifeBars.Count - 1) - LevelManager.gameProgress_SO.CurrentPlayerLives;
         UpdateLifeBar(_currentLifeBarNumber);
     }
     #endregion

@@ -6,19 +6,19 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     #region VARIABLES
-    public static GameSettings_SO _gameSettings_SO = null;
-    private PlayerScores _playerScores = null;
+    public static GameSettings_SO gameSettings_SO = null;
+    public static GameProgress_SO gameProgress_SO = null;
     #endregion
 
     #region UNITY Methods
     private void Awake()
     {
-        _gameSettings_SO = Resources.Load<GameSettings_SO>("ScriptableObjects/GameSettings_SO");
-        _playerScores = FindObjectOfType<PlayerScores>();
+        gameSettings_SO = Resources.Load<GameSettings_SO>("ScriptableObjects/GameSettings_SO");
+        gameProgress_SO = Resources.Load<GameProgress_SO>("ScriptableObjects/GameProgress_SO");
 
-        _playerScores.OnLevelComplete.AddListener(LoadNextLevel);
-
-        Debug.Log($"{SceneManager.GetActiveScene().buildIndex}");
+        EventManager.OnLevelComplete.AddListener(LoadNextLevel);
+        EventManager.OnPlayerDamaged.AddListener(RestartLevel);
+        EventManager.OnPlayerDead.AddListener(GameOver);
     }
 
     #endregion
@@ -44,5 +44,23 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Restarts current level
+    /// </summary>
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    /// <summary>
+    /// Shows game over popup
+    /// </summary>
+    private void GameOver()
+    {
+        // Pause game
+        // Call Game over popup
+        Debug.Log("Game over!");
+
+    }
     #endregion
 }

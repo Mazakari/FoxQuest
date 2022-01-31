@@ -7,27 +7,13 @@ public class Player : MonoBehaviour, IDamagable
 {
     #region VARIABLES
     private int _maxLives;
-    private int _curLives;
-
-    #region EVENTS
-    /// <summary>
-    /// Send this callback when player have no lives left.
-    /// </summary>
-    public event EventHandler OnPlayerDead;
-
-    /// <summary>
-    /// Send this callback when player gets damage.
-    /// </summary>
-    public event EventHandler OnPlayerDamaged;
-    #endregion
     #endregion
 
     #region UNITY Methods
     // Start is called before the first frame update
     private void Start()
     {
-        _maxLives = LevelManager._gameSettings_SO.PlayerLives;
-        _curLives = _maxLives;
+        _maxLives = LevelManager.gameSettings_SO.PlayerLives;
     }
     #endregion
 
@@ -39,17 +25,21 @@ public class Player : MonoBehaviour, IDamagable
     /// </summary>
     public void GetDamage()
     {
-        _curLives--;
+        LevelManager.gameProgress_SO.CurrentPlayerLives--;
+        // Update health UI
+        EventManager.OnLifebarUpdate.Invoke();
 
-        if (_curLives == 0)
+        if (LevelManager.gameProgress_SO.CurrentPlayerLives <= 0)
         {
+            LevelManager.gameProgress_SO.CurrentPlayerLives = 0;
+
             // Game Over!
-            OnPlayerDead?.Invoke(this, EventArgs.Empty);
+            EventManager.OnPlayerDead.Invoke();
             return;
         }
 
-        // Player Damaged
-        OnPlayerDamaged?.Invoke(this, EventArgs.Empty);
+        // Player damaged
+        EventManager.OnPlayerDamaged.Invoke();
     }
     #endregion
 }

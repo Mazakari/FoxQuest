@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameSettings_SO", menuName = "ScriptableObjects", order = 1)]
+[CreateAssetMenu(fileName = "GameSettings_SO")]
 public class GameSettings_SO : ScriptableObject
 {
     #region VARIABLES
@@ -10,7 +10,7 @@ public class GameSettings_SO : ScriptableObject
     /// <summary>
     /// Maximum player lives per level
     /// </summary>
-    public int PlayerLives { get { return _playerLives; } }
+    public int PlayerLives { get { return _playerLives; }}
 
     [SerializeField] private int _levelScoresGoal = 8;
     /// <summary>

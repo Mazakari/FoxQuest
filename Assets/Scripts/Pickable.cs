@@ -13,7 +13,7 @@ public class Pickable : MonoBehaviour
     #region UNITY Methods
     private void Start()
     {
-        _pickupScore = LevelManager._gameSettings_SO.PickupScore;
+        _pickupScore = LevelManager.gameSettings_SO.PickupScore;
         _playerScores = FindObjectOfType<PlayerScores>();
     }
 

@@ -1,7 +1,6 @@
 // Roman Baranov 22.12.2021
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class DeathTrigger : MonoBehaviour
@@ -13,9 +12,11 @@ public class DeathTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.GetComponent<Player>())
+        Player player = collider.GetComponent<Player>();
+
+        if (player)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            player.GetDamage();
         }
         else if(collider.GetComponent<Projectile>())
         {

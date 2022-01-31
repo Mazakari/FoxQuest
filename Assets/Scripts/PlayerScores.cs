@@ -11,18 +11,12 @@ public class PlayerScores : MonoBehaviour
     private Text _playerScoresText = null;
     private int _targetScores = 1;
     private int _currentScores = 0;
-
-    /// <summary>
-    /// Send this callback when all levelt targets complete
-    /// </summary>
-    //public event EventHandler OnLevelComplete;
-    public UnityEvent OnLevelComplete = new UnityEvent();
     #endregion
 
     #region UNITY Methods
     private void Start()
     {
-        _targetScores = LevelManager._gameSettings_SO.LevelScoresGoal;
+        _targetScores = LevelManager.gameSettings_SO.LevelScoresGoal;
         _playerScoresText = transform.Find("PlayerScoresText").GetComponent<Text>();
 
         UpdateScoresText(0);
@@ -37,9 +31,7 @@ public class PlayerScores : MonoBehaviour
         if (_currentScores >= _targetScores)
         {
             _currentScores = _targetScores;
-            //OnLevelComplete?.Invoke(this, EventArgs.Empty);
-            OnLevelComplete.Invoke();
-            Debug.Log("Level Complete!");
+            EventManager.OnLevelComplete.Invoke();
         }
         
         _playerScoresText.text = $"{_currentScores} / {_targetScores}";
