@@ -13,14 +13,24 @@ public class DeathTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         Player player = collider.GetComponent<Player>();
+        int layer = LayerMask.NameToLayer("Characters");
 
-        if (player)
+        if (player && collider.gameObject.layer == layer)
         {
             player.GetDamage();
+            return;
         }
-        else if(collider.GetComponent<Projectile>())
+
+        if (collider.gameObject.layer == layer)
         {
-            Destroy(collider.gameObject);
+            Destroy(collider.transform.root.gameObject);
+            return;
+        }
+
+        if(collider.GetComponent<Projectile>())
+        {
+            Destroy(collider.transform.root.gameObject);
+            return;
         }
     }
 }

@@ -7,7 +7,7 @@ public class Controls_Input : MonoBehaviour
 {
     #region VARIABLES
     private Controls_Movement _controls_Movement = null;
-    private Shooter _shooter = null;
+    //private Shooter _shooter = null;
 
     private float _horizontal;
     private bool _isJumping;
@@ -19,7 +19,7 @@ public class Controls_Input : MonoBehaviour
     private void Awake()
     {
         _controls_Movement = GetComponent<Controls_Movement>();
-        _shooter = transform.Find("Shooter").GetComponent<Shooter>();
+        //_shooter = transform.Find("Shooter").GetComponent<Shooter>();
 
         _isJumping = false;
         _isShooting = false;
@@ -33,7 +33,7 @@ public class Controls_Input : MonoBehaviour
         _isShooting = Input.GetButtonDown(GlobalVariables.FIRE1);
 
         _controls_Movement.Jump(_isJumping);
-        _shooter.Shoot(_isShooting, _controls_Movement.FlipX);
+        //_shooter.Shoot(_isShooting, _controls_Movement.FlipX);
     }
 
     private void FixedUpdate()

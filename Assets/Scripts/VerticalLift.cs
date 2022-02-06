@@ -28,6 +28,9 @@ public class VerticalLift : MonoBehaviour
     #endregion
 
     #region PRIVATE Methods
+    /// <summary>
+    /// Initiate lift settings on start
+    /// </summary>
     private void InitLift()
     {
         JointTranslationLimits2D newLimits = new JointTranslationLimits2D();
@@ -43,15 +46,23 @@ public class VerticalLift : MonoBehaviour
         _sliderJoint2D.motor = newMotor;
     }
 
+    /// <summary>
+    /// Flips motor speed
+    /// </summary>
     private void FlipMotorSpeed()
     {
         JointMotor2D newMotor = new JointMotor2D();
         newMotor = _sliderJoint2D.motor;
 
-        newMotor.motorSpeed *= -_platformSpeed;
+        float newSpeed = _sliderJoint2D.motor.motorSpeed * -1;
+
+        newMotor.motorSpeed = newSpeed;
         _sliderJoint2D.motor = newMotor;
     }
 
+    /// <summary>
+    /// Move platform loop
+    /// </summary>
     private void PlatformMooveLoop()
     {
         if (_sliderJoint2D.jointTranslation >= _sliderJoint2D.limits.max && !_isUp)

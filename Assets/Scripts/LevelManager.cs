@@ -60,6 +60,7 @@ public class LevelManager : MonoBehaviour
         // Pause game
         // Call Game over popup
         Debug.Log("Game over!");
+        SceneManager.LoadScene(0);
 
     }
     #endregion

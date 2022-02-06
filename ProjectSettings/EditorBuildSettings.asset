@@ -15,10 +15,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Level2_Mine.unity
     guid: bc7f8355599e56142bf5d06fd9ecd58e
   - enabled: 1
-    path: Assets/Scenes/Level3_Island.unity
+    path: Assets/Scenes/Level3_Grotto.unity
     guid: 1ac6b07b5845d314d9be1b7ba7de54c2
   - enabled: 1
-    path: Assets/Scenes/Level4_MajicForest.unity
+    path: Assets/Scenes/Level4_MagicCliffs.unity
     guid: 6c14157a80e724b4a8dc22bdee281605
   - enabled: 1
     path: Assets/Scenes/Level5_Swamp.unity
