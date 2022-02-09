@@ -1,18 +1,27 @@
 //Roman Baranov 23.10.2021
 
+using System.Collections;
 using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
     #region VARIABLES
     [SerializeField] private float _projectileSpeed = 20f;
-    private GameObject _projectilePrefab = null;
+    [SerializeField] private GameObject _projectilePrefab = null;
+
+    [SerializeField] private float _shootDelay = 3f;
+    private float _shootTimer = 0f;
+    private bool _shootAllowed = true;
+    private bool flipX = false;
+
+    private Animator _anim = null;
     #endregion
 
     #region UNITY Methods
-    private void Awake()
+    private void Start()
     {
-        _projectilePrefab = Resources.Load<GameObject>("Prefabs/Projectile");
+        flipX = transform.parent.Find("HellBeast").GetComponent<SpriteRenderer>().flipX;
+        _anim = transform.parent.Find("HellBeast").GetComponent<Animator>();
     }
     #endregion
 
@@ -20,24 +29,43 @@ public class Shooter : MonoBehaviour
     /// <summary>
     /// Shoot projectile in direction character facing
     /// </summary>
-    /// <param name="isShooting">Is shoot button pressed</param>
-    /// <param name="flipX">Is character SpriteRenderer flipX true or false</param>
-    public void Shoot(bool isShooting, bool flipX)
+    public IEnumerator Shoot()
     {
-        if (isShooting)
+        if (_shootAllowed)
         {
-            GameObject projectile = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
-            Rigidbody2D currentBulletVelocity = projectile.GetComponent<Rigidbody2D>();
+            _shootAllowed = false;
 
+            _anim.SetTrigger("Shoot");
+            yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length);
+            
+            GameObject projectile = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+
+            int shootDirection;
             if (!flipX)
             {
-                currentBulletVelocity.velocity = new Vector2(_projectileSpeed * 1, currentBulletVelocity.velocity.y);
+                shootDirection = -1;
             }
             else
             {
-                currentBulletVelocity.velocity = new Vector2(_projectileSpeed * -1, currentBulletVelocity.velocity.y);
+                shootDirection = 1;
             }
+
+            while (_shootTimer < _shootDelay)
+            {
+                if (projectile != null)
+                {
+                    projectile.transform.Translate(new Vector2(shootDirection, 0) * _projectileSpeed);
+                    _shootTimer += Time.deltaTime;
+                }
+
+                yield return new WaitForEndOfFrame();
+            }
+
+            _shootTimer = 0f;
+            _shootAllowed = true;
         }
+
+        yield return null;
     }
     #endregion
 

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy_Bat : MonoBehaviour
 {
     #region VARIABLES
+    [SerializeField] private bool _flipSprite = false;
     [SerializeField] private Transform _pointA = null;
     [SerializeField] private Transform _pointB = null;
     [SerializeField] private float pushForce = 5;
@@ -15,13 +16,14 @@ public class Enemy_Bat : MonoBehaviour
 
 
     private SpriteRenderer _spriteRenderer = null;
+
     #endregion
 
     #region UNITY Methods
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _spriteRenderer.flipX = false;
+        CheckFlipOnStart();
 
         StartCoroutine(Interpolate(_pointA.position, _pointB.position));
     }
@@ -53,6 +55,21 @@ public class Enemy_Bat : MonoBehaviour
             yield return null;
         }
   
+    }
+
+    /// <summary>
+    /// Check state of the flip x flag in sprite renderer
+    /// </summary>
+    private void CheckFlipOnStart()
+    {
+        if (_flipSprite)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        else
+        {
+            _spriteRenderer.flipX = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)

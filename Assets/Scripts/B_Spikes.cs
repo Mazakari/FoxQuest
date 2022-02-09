@@ -4,7 +4,7 @@ using UnityEngine;
 public class B_Spikes : MonoBehaviour
 {
     #region VARIABLES
-    private float pushForce = 5f;
+    [SerializeField] private float pushForce = 5f;
     #endregion
 
     #region UNITY Methods

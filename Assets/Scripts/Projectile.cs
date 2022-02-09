@@ -9,21 +9,25 @@ public class Projectile : MonoBehaviour
     #endregion
 
     #region UNITY Methods
+    private void Start()
+    {
+        Destroy(gameObject, _destroyDelay);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.GetComponent<Player>())
+        Debug.Log("Collision");
+        Player player = collision.gameObject.GetComponent<Player>();
+        if (player is null)
         {
-            IDamagable target = collision.collider.GetComponent<IDamagable>();
-
-            if (target != null)
-            {
-                target.GetDamage();
-                Destroy(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject, _destroyDelay);
-            }
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Damage");
+            IDamagable damagable = player.GetComponent<IDamagable>();
+            damagable.GetDamage();
+            Destroy(gameObject);
         }
     }
     #endregion

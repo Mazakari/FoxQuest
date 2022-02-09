@@ -60,6 +60,7 @@ public class Controls_Movement : MonoBehaviour
     {
         if (isJumping && _grounded)
         {
+            PlayerAudioManager.Instance.PlayJumpSound();
             _rigidbody2D.velocity = Vector2.up * _jumpForce;
         }
     }

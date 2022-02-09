@@ -8,6 +8,8 @@ public class Pickable : MonoBehaviour
     #region VARIABLES
     [SerializeField] private int _pickupScore = 1;
     private PlayerScores _playerScores = null;
+    private AudioSource _audioSource = null;
+    private SpriteRenderer _spriteRenderer = null;
     #endregion
 
     #region UNITY Methods
@@ -15,6 +17,8 @@ public class Pickable : MonoBehaviour
     {
         _pickupScore = LevelManager.gameSettings_SO.PickupScore;
         _playerScores = FindObjectOfType<PlayerScores>();
+        _audioSource = GetComponent<AudioSource>();
+        _spriteRenderer = transform.Find("gem-1").GetComponent<SpriteRenderer>();
     }
 
     //private void OnCollisionEnter2D(Collision2D collision)
@@ -30,8 +34,10 @@ public class Pickable : MonoBehaviour
     {
         if (collider.gameObject.GetComponent<Player>())
         {
+            _audioSource.Play();
             _playerScores.UpdateScoresText(_pickupScore);
-            Destroy(gameObject);
+            _spriteRenderer.enabled = false;
+            Destroy(gameObject,_audioSource.clip.length);
         }
     }
     #endregion

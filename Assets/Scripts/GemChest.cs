@@ -9,13 +9,16 @@ public class GemChest : MonoBehaviour
     #region VARIABLES
     private List<SpriteRenderer> _chestSprites = null;
     private PickablesSpawner _pickableSpawner = null;
+    private AudioSource _audioSource = null;
     #endregion
 
     #region UNITY Methods
     // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
         _pickableSpawner = GetComponent<PickablesSpawner>();
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.playOnAwake = false;
         InitChest();
     }
 
@@ -23,6 +26,7 @@ public class GemChest : MonoBehaviour
     {
         if (collider.GetComponent<Player>())
         {
+            _audioSource.Play();
             OpenChest();
             _pickableSpawner.SpawnPickables();
         }
