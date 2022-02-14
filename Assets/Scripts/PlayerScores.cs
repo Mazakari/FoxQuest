@@ -11,6 +11,10 @@ public class PlayerScores : MonoBehaviour
     private Text _playerScoresText = null;
     private int _targetScores = 1;
     private int _currentScores = 0;
+    /// <summary>
+    /// Current player scores
+    /// </summary>
+    public int CurrentScores { get { return _currentScores; } }
     #endregion
 
     #region UNITY Methods

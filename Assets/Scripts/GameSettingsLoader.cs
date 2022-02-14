@@ -13,10 +13,13 @@ public class GameSettingsLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1f;
+
         _gameSettings_SO = Resources.Load<GameSettings_SO>("ScriptableObjects/GameSettings_SO");
         _gameProgress_SO = Resources.Load<GameProgress_SO>("ScriptableObjects/GameProgress_SO");
 
         _gameProgress_SO.CurrentPlayerLives = _gameSettings_SO.PlayerLives;
+        _gameProgress_SO.TotalScores = 0;
     }
     #endregion
 }

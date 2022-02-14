@@ -11,5 +11,11 @@ public class GameProgress_SO : ScriptableObject
     /// Current player lifes amount
     /// </summary>
     public int CurrentPlayerLives { get { return _currentPlayerLives; } set { _currentPlayerLives = value; } }
+
+    [SerializeField]private int _totalScores = 0;
+    /// <summary>
+    /// Player total scores
+    /// </summary>
+    public int TotalScores { get { return _totalScores; } set { _totalScores = value; } }
     #endregion
 }

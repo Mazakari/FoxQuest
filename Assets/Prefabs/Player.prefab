@@ -65,6 +65,7 @@ GameObject:
   - component: {fileID: 998051508}
   - component: {fileID: 2326663963951083688}
   - component: {fileID: 6494165496826671341}
+  - component: {fileID: 5092371447779212975}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -126,7 +127,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 4105c8e658e807345bfc1fb8702e9542, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -357,3 +358,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpSound: {fileID: 8300000, guid: ac3736b869316af4aa1e1849c31e3b59, type: 3}
   _deathSound: {fileID: 8300000, guid: b70c4b59f6afa7f4d82af9977166389f, type: 3}
+--- !u!114 &5092371447779212975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7117663316245091937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c9423a6356a884e8c2149f3016efa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

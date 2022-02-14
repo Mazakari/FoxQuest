@@ -14,7 +14,7 @@ public class MainMenu_VersionInfo : MonoBehaviour
     void Start()
     {
         _text = GetComponent<Text>();
-        _text.text = $"v {Application.version}\nDeveloped by Roman Baranov";
+        _text.text = $"v {Application.version}\nDeveloped by Roman Baranov\nArt by Ansimuz";
 
     }
     #endregion

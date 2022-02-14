@@ -8,26 +8,32 @@ public class LevelManager : MonoBehaviour
     #region VARIABLES
     public static GameSettings_SO gameSettings_SO = null;
     public static GameProgress_SO gameProgress_SO = null;
+
+    private LevelUI_LevelResults _levelResultsPopup = null;
     #endregion
 
     #region UNITY Methods
     private void Awake()
     {
+        Time.timeScale = 1f;
+
+        _levelResultsPopup = FindObjectOfType<LevelUI_LevelResults>();
+
         gameSettings_SO = Resources.Load<GameSettings_SO>("ScriptableObjects/GameSettings_SO");
         gameProgress_SO = Resources.Load<GameProgress_SO>("ScriptableObjects/GameProgress_SO");
 
-        EventManager.OnLevelComplete.AddListener(LoadNextLevel);
+        EventManager.OnLevelComplete.AddListener(_levelResultsPopup.ShowLevelWonPopup);
         EventManager.OnPlayerDamaged.AddListener(RestartLevel);
-        EventManager.OnPlayerDead.AddListener(GameOver);
+        EventManager.OnPlayerDead.AddListener(_levelResultsPopup.ShowGameOverPopup);
     }
 
     #endregion
 
-    #region PRIVATE Methods
+    #region PUBLIC Methods
     /// <summary>
     /// Loads next level or a main menu, if all levels completed
     /// </summary>
-    private void LoadNextLevel()
+    public void LoadNextLevel()
     {
         int curSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int scenesCount = SceneManager.sceneCountInBuildSettings;
@@ -47,7 +53,7 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Restarts current level
     /// </summary>
-    private void RestartLevel()
+    public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -55,13 +61,21 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Shows game over popup
     /// </summary>
-    private void GameOver()
+    public void GameOver()
     {
         // Pause game
         // Call Game over popup
         Debug.Log("Game over!");
         SceneManager.LoadScene(0);
 
+    }
+
+    /// <summary>
+    /// Loads main menu
+    /// </summary>
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
     #endregion
 }

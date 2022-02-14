@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1024def82894454c9fe3451d45f82fa, type: 3}
   m_Name: GameProgress_SO
   m_EditorClassIdentifier: 
+  _totalScores: 0
