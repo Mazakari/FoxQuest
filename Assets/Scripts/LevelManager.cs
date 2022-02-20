@@ -27,6 +27,14 @@ public class LevelManager : MonoBehaviour
         EventManager.OnPlayerDead.AddListener(_levelResultsPopup.ShowGameOverPopup);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     #endregion
 
     #region PUBLIC Methods
